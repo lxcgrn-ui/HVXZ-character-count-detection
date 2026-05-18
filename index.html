@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVXZ character count detection</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #eeeeee 0%, #ffffff 100%);
+            font-family: system-ui, -apple-system, sans-serif;
+            color: #2c2c2c;
+        }
+
+        .GlassContainer {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 16px;
+            padding: 2.5rem;
+            width: 90%;
+            max-width: 650px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #4a4a4a;
+            font-weight: 500;
+        }
+
+        .InputStream {
+            width: 100%;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-sizing: border-box;
+            resize: vertical;
+            font-size: 1rem;
+            color: #2c2c2c;
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .InputStream::placeholder {
+            color: #888;
+        }
+
+        .InputStream:focus {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #d0d0d0;
+        }
+
+        .OptionsTrigger {
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        input[type="checkbox"] {
+            accent-color: #666;
+            width: 1.1rem;
+            height: 1.1rem;
+            cursor: pointer;
+        }
+
+        label {
+            cursor: pointer;
+            color: #555;
+            user-select: none;
+        }
+
+        .ResultDisplay {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="GlassContainer">
+        <h1>HVXZ character count detection</h1>
+        
+        <textarea 
+            class="InputStream" 
+            id="TextInput" 
+            placeholder="Input text here..."
+        ></textarea>
+
+        <div class="OptionsTrigger">
+            <input type="checkbox" id="PunctuationToggle" checked>
+            <label for="PunctuationToggle">Include punctuation</label>
+        </div>
+
+        <div class="ResultDisplay">
+            Character count: <span id="CountOutput">0</span>
+        </div>
+    </div>
+
+    <script>
+        const TextInput = document.getElementById('TextInput');
+        const PunctuationToggle = document.getElementById('PunctuationToggle');
+        const CountOutput = document.getElementById('CountOutput');
+
+        const UpdateCount = () => {
+            let rawData = TextInput.value;
+
+            if (!PunctuationToggle.checked) {
+                rawData = rawData.replace(/[\p{P}\p{S}]/gu, '');
+                rawData = rawData.replace(/\s/g, '');
+            } else {
+                rawData = rawData.replace(/[\r\n]/g, '');
+            }
+
+            CountOutput.textContent = Array.from(rawData).length;
+        };
+
+        TextInput.addEventListener('input', UpdateCount);
+        PunctuationToggle.addEventListener('change', UpdateCount);
+    </script>
+</body>
+</html>
