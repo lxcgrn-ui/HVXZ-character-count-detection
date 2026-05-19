@@ -59,18 +59,11 @@
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.02);
             opacity: 0;
             transform: scale(0.96);
-            animation: 
-                InterfaceMount 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards,
-                CardBreathe 5s ease-in-out infinite alternate 0.6s;
+            animation: InterfaceMount 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes InterfaceMount {
             to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes CardBreathe {
-            0% { box-shadow: 0 30px 60px rgba(0, 0, 0, 0.02), inset 0 0 0px rgba(255,255,255,0); }
-            100% { box-shadow: 0 35px 70px rgba(0, 0, 0, 0.04), inset 0 0 15px rgba(255,255,255,0.6); transform: translateY(-2px); }
         }
 
         h1 {
@@ -81,12 +74,6 @@
             margin: 0 0 2.5rem 0;
             color: #444;
             text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
-            animation: TextGlance 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes TextGlance {
-            0% { filter: drop-shadow(0 0 0px rgba(255,255,255,0)); }
-            100% { filter: drop-shadow(0 0 4px rgba(255,255,255,0.8)); letter-spacing: 2.5px; }
         }
 
         .InputWrapper {
@@ -109,13 +96,12 @@
             color: #111;
             outline: none;
             resize: none;
-            transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s;
+            transition: border-color 0.4s, background-color 0.4s;
         }
 
         .DataInputStream:focus {
             background: rgba(255, 255, 255, 0.25);
             border-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
         .ControlPanel {
@@ -140,13 +126,12 @@
             background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s;
         }
 
         .CheckboxEntity:checked {
             background: #444;
             border-color: #444;
-            transform: scale(1.05);
         }
 
         .CheckboxEntity:checked::after {
@@ -166,11 +151,6 @@
             color: #555;
             cursor: pointer;
             user-select: none;
-            transition: color 0.3s;
-        }
-
-        .ToggleLabel:hover {
-            color: #111;
         }
 
         .ExecutionTrigger {
@@ -182,21 +162,7 @@
             cursor: pointer;
             letter-spacing: 1px;
             color: #333;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .ExecutionTrigger::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transform: skewX(-30deg);
-            transition: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .ExecutionTrigger:hover {
@@ -206,13 +172,8 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
         }
 
-        .ExecutionTrigger:hover::before {
-            left: 150%;
-            transition: left 0.8s ease-in-out;
-        }
-
         .ExecutionTrigger:active {
-            transform: translateY(0) scale(0.98);
+            transform: translateY(0);
         }
 
         .MetricsStage {
@@ -229,12 +190,6 @@
             width: 32px;
             height: 32px;
             position: relative;
-            animation: SpinnerPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        @keyframes SpinnerPop {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .SpinnerBlade {
@@ -245,7 +200,7 @@
             background-color: #555;
             border-radius: 2px;
             transform-origin: center 16px;
-            animation: BladeFade 0.8s linear infinite;
+            animation: BladeFade 1s linear infinite;
         }
 
         @keyframes BladeFade {
@@ -257,15 +212,11 @@
             display: none;
             flex-direction: column;
             align-items: center;
-            opacity: 0;
-            transform: translateY(12px);
+            animation: ResultReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .MetricsVisualizer.Triggered {
-            animation: ResultRevealPro 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        @keyframes ResultRevealPro {
+        @keyframes ResultReveal {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -283,7 +234,6 @@
             color: #111;
             line-height: 1;
             font-variant-numeric: tabular-nums;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
     </style>
 </head>
@@ -344,16 +294,14 @@
             constructor(OriginX, OriginY) {
                 this.PositionX = OriginX;
                 this.PositionY = OriginY;
-                this.VelocityX = (Math.random() - 0.5) * 5;
-                this.VelocityY = (Math.random() - 0.5) * 5 - 2.5;
-                this.Radius = Math.random() * 3.5 + 1;
+                this.VelocityX = (Math.random() - 0.5) * 4;
+                this.VelocityY = (Math.random() - 0.5) * 4 - 2;
+                this.Radius = Math.random() * 3 + 1;
                 this.Alpha = 1;
-                this.Decay = Math.random() * 0.02 + 0.01;
-                this.Gravity = 0.04;
+                this.Decay = Math.random() * 0.03 + 0.015;
             }
 
             Update() {
-                this.VelocityY += this.Gravity;
                 this.PositionX += this.VelocityX;
                 this.PositionY += this.VelocityY;
                 this.Alpha -= this.Decay;
@@ -362,9 +310,7 @@
             Draw() {
                 CanvasContext.save();
                 CanvasContext.globalAlpha = this.Alpha;
-                CanvasContext.fillStyle = '#555555';
-                CanvasContext.shadowBlur = 3;
-                CanvasContext.shadowColor = '#ffffff';
+                CanvasContext.fillStyle = '#666666';
                 CanvasContext.beginPath();
                 CanvasContext.arc(this.PositionX, this.PositionY, this.Radius, 0, Math.PI * 2);
                 CanvasContext.fill();
@@ -377,7 +323,7 @@
             const CaretPositionX = Bounds.left + 30 + (Math.random() * (Bounds.width - 60));
             const CaretPositionY = Bounds.top + 40 + (Math.random() * (Bounds.height - 80));
 
-            for (let Iteration = 0; Iteration < 10; Iteration++) {
+            for (let Iteration = 0; Iteration < 6; Iteration++) {
                 ActiveParticles.push(new ParticleEntity(CaretPositionX, CaretPositionY));
             }
         };
@@ -402,37 +348,13 @@
                 const Blade = document.createElement('div');
                 Blade.className = 'SpinnerBlade';
                 Blade.style.transform = `rotate(${Index * 30}deg)`;
-                Blade.style.animationDelay = `-${(12 - Index) * 0.066}s`;
+                Blade.style.animationDelay = `-${(12 - Index) * 0.083}s`;
                 SpinnerNode.appendChild(Blade);
             }
         };
         ConstructAppleSpinner();
 
-        const AnimateNumericCounter = (TargetValue) => {
-            let StartTimestamp = null;
-            const Duration = 350;
-
-            const Step = (CurrentTimestamp) => {
-                if (!StartTimestamp) StartTimestamp = CurrentTimestamp;
-                const Elapsed = CurrentTimestamp - StartTimestamp;
-                const Progress = Math.min(Elapsed / Duration, 1);
-                
-                const EaseOutQuad = Progress * (2 - Progress);
-                const CurrentValue = Math.floor(EaseOutQuad * TargetValue);
-                
-                RenderNode.textContent = CurrentValue;
-
-                if (Progress < 1) {
-                    requestAnimationFrame(Step);
-                } else {
-                    RenderNode.textContent = TargetValue;
-                }
-            };
-            requestAnimationFrame(Step);
-        };
-
         const ExecuteDetectionCycle = () => {
-            VisualizerNode.classList.remove('Triggered');
             VisualizerNode.style.display = 'none';
             SpinnerNode.style.display = 'block';
 
@@ -445,14 +367,9 @@
                     RawBuffer = RawBuffer.replace(/[\r\n]/g, '');
                 }
 
-                const FinalCount = Array.from(RawBuffer).length;
+                RenderNode.textContent = Array.from(RawBuffer).length;
                 SpinnerNode.style.display = 'none';
                 VisualizerNode.style.display = 'flex';
-                
-                requestAnimationFrame(() => {
-                    VisualizerNode.classList.add('Triggered');
-                    AnimateNumericCounter(FinalCount);
-                });
             }, 500);
         };
 
