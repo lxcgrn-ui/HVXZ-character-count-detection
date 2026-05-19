@@ -23,112 +23,115 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f0f0 45%, #d8d8d8 100%);
-            animation: EnvironmentBreathe 18s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+            background: linear-gradient(120deg, #e8e8e8, #f5f5f5, #e1e1e1, #eeeeee, #f0f0f0);
+            background-size: 400% 400%;
+            animation: ColorStream 25s ease infinite;
             z-index: 0;
         }
 
-        @keyframes EnvironmentBreathe {
-            0% { transform: scale(0.8) translate(0, 0); }
-            100% { transform: scale(1.1) translate(2%, 3%); }
+        @keyframes ColorStream {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .ParticleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .OpticalInterface {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             width: 90%;
-            max-width: 680px;
-            padding: 2.5rem;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.03),
-                inset 0 0 20px rgba(255, 255, 255, 0.5);
+            max-width: 750px;
+            padding: 3rem;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(1px);
+            -webkit-backdrop-filter: blur(1px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.02);
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            animation: InterfaceMount 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: scale(0.96);
+            animation: InterfaceMount 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes InterfaceMount {
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
+            to { opacity: 1; transform: scale(1); }
         }
 
         h1 {
-            font-size: 1.4rem;
-            font-weight: 400;
+            font-size: 1.5rem;
+            font-weight: 300;
             text-align: center;
-            letter-spacing: 1px;
-            margin: 0 0 2rem 0;
-            color: #555;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+            letter-spacing: 2px;
+            margin: 0 0 2.5rem 0;
+            color: #444;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .InputWrapper {
+            position: relative;
+            width: 100%;
         }
 
         .DataInputStream {
             width: 100%;
-            height: 220px;
-            background: rgba(255, 255, 255, 0.15);
+            height: 280px;
+            background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(1px);
             -webkit-backdrop-filter: blur(1px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
             box-sizing: border-box;
-            font-size: 1.1rem;
-            color: #222;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #111;
             outline: none;
             resize: none;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02);
-        }
-
-        .DataInputStream::placeholder {
-            color: #999;
-            transition: opacity 0.3s ease;
+            transition: border-color 0.4s, background-color 0.4s;
         }
 
         .DataInputStream:focus {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: #fff;
-            box-shadow: 
-                inset 0 2px 8px rgba(0, 0, 0, 0.01),
-                0 0 25px rgba(255, 255, 255, 0.8);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.9);
         }
 
-        .DataInputStream:focus::placeholder {
-            opacity: 0.5;
+        .ControlPanel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
         }
 
         .LogicToggles {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            margin-top: 1.2rem;
             gap: 0.8rem;
         }
 
         .CheckboxEntity {
             appearance: none;
-            width: 22px;
-            height: 22px;
-            border: 2px solid #ccc;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.15);
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
             position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
         }
 
         .CheckboxEntity:checked {
-            background: #777;
-            border-color: #777;
-            box-shadow: 0 4px 10px rgba(119, 119, 119, 0.2);
+            background: #444;
+            border-color: #444;
         }
 
         .CheckboxEntity:checked::after {
@@ -136,132 +139,242 @@
             position: absolute;
             left: 6px;
             top: 2px;
-            width: 5px;
-            height: 10px;
+            width: 4px;
+            height: 9px;
             border: solid white;
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
         }
 
         .ToggleLabel {
-            font-size: 0.95rem;
-            color: #666;
+            font-size: 1rem;
+            color: #555;
             cursor: pointer;
             user-select: none;
-            transition: color 0.3s ease;
         }
 
-        .ToggleLabel:hover {
+        .ExecutionTrigger {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 0.8rem 2.2rem;
+            font-size: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 1px;
             color: #333;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .ExecutionTrigger:hover {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .ExecutionTrigger:active {
+            transform: translateY(0);
+        }
+
+        .MetricsStage {
+            margin-top: 2.5rem;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .AppleSpinner {
+            display: none;
+            width: 32px;
+            height: 32px;
+            position: relative;
+        }
+
+        .SpinnerBlade {
+            position: absolute;
+            left: 14px;
+            width: 3.5px;
+            height: 9px;
+            background-color: #555;
+            border-radius: 2px;
+            transform-origin: center 16px;
+            animation: BladeFade 1s linear infinite;
+        }
+
+        @keyframes BladeFade {
+            from { opacity: 1; }
+            to { opacity: 0.15; }
         }
 
         .MetricsVisualizer {
-            margin-top: 2rem;
-            text-align: center;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            animation: ResultReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes ResultReveal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .MetricsLabel {
-            font-size: 0.9rem;
-            color: #888;
+            font-size: 0.85rem;
+            color: #777;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 0.2rem;
         }
 
         .MetricsValue {
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 300;
             color: #111;
             line-height: 1;
             font-variant-numeric: tabular-nums;
-            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.1s ease-out, text-shadow 0.1s ease-out;
-        }
-
-        .MetricsValue.Pulse {
-            transform: scale(1.08);
-            text-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
 
     <div class="DynamicEnvironment"></div>
+    <canvas class="ParticleCanvas" id="ParticleCanvas"></canvas>
 
     <div class="OpticalInterface">
         <h1>HVXZ character count detection</h1>
         
-        <textarea 
-            class="DataInputStream" 
-            id="StreamNode" 
-            placeholder="Initialize text stream..."
-            spellcheck="false"
-        ></textarea>
-
-        <div class="LogicToggles">
-            <input type="checkbox" id="SymbolFilterNode" class="CheckboxEntity" checked>
-            <label for="SymbolFilterNode" class="ToggleLabel">Include punctuation</label>
+        <div class="InputWrapper">
+            <textarea 
+                class="DataInputStream" 
+                id="StreamNode" 
+                placeholder="Initialize text stream..."
+                spellcheck="false"
+            ></textarea>
         </div>
 
-        <div class="MetricsVisualizer">
-            <span class="MetricsLabel">Characters</span>
-            <div class="MetricsValue" id="RenderNode">0</div>
+        <div class="ControlPanel">
+            <div class="LogicToggles">
+                <input type="checkbox" id="SymbolFilterNode" class="CheckboxEntity" checked>
+                <label for="SymbolFilterNode" class="ToggleLabel">Include punctuation</label>
+            </div>
+            <button class="ExecutionTrigger" id="ActionNode">DETECT</button>
+        </div>
+
+        <div class="MetricsStage">
+            <div class="AppleSpinner" id="SpinnerNode"></div>
+            <div class="MetricsVisualizer" id="VisualizerNode">
+                <span class="MetricsLabel">Characters</span>
+                <div class="MetricsValue" id="RenderNode">0</div>
+            </div>
         </div>
     </div>
 
     <script>
         const StreamNode = document.getElementById('StreamNode');
         const SymbolFilterNode = document.getElementById('SymbolFilterNode');
+        const ActionNode = document.getElementById('ActionNode');
+        const SpinnerNode = document.getElementById('SpinnerNode');
+        const VisualizerNode = document.getElementById('VisualizerNode');
         const RenderNode = document.getElementById('RenderNode');
+        const CanvasNode = document.getElementById('ParticleCanvas');
+        const CanvasContext = CanvasNode.getContext('2d');
 
-        let TargetMetrics = 0;
-        let CurrentMetrics = 0;
-        let InterpolationFrame = null;
+        let ActiveParticles = [];
 
-        const InterpolateMetrics = () => {
-            if (CurrentMetrics !== TargetMetrics) {
-                const Delta = TargetMetrics - CurrentMetrics;
-                CurrentMetrics += Math.ceil(Delta * 0.15); 
-                
-                if (Math.abs(TargetMetrics - CurrentMetrics) < 1) {
-                    CurrentMetrics = TargetMetrics;
+        const InitializeCanvas = () => {
+            CanvasNode.width = window.innerWidth;
+            CanvasNode.height = window.innerHeight;
+        };
+        window.addEventListener('resize', InitializeCanvas);
+        InitializeCanvas();
+
+        class ParticleEntity {
+            constructor(OriginX, OriginY) {
+                this.PositionX = OriginX;
+                this.PositionY = OriginY;
+                this.VelocityX = (Math.random() - 0.5) * 4;
+                this.VelocityY = (Math.random() - 0.5) * 4 - 2;
+                this.Radius = Math.random() * 3 + 1;
+                this.Alpha = 1;
+                this.Decay = Math.random() * 0.03 + 0.015;
+            }
+
+            Update() {
+                this.PositionX += this.VelocityX;
+                this.PositionY += this.VelocityY;
+                this.Alpha -= this.Decay;
+            }
+
+            Draw() {
+                CanvasContext.save();
+                CanvasContext.globalAlpha = this.Alpha;
+                CanvasContext.fillStyle = '#666666';
+                CanvasContext.beginPath();
+                CanvasContext.arc(this.PositionX, this.PositionY, this.Radius, 0, Math.PI * 2);
+                CanvasContext.fill();
+                CanvasContext.restore();
+            }
+        }
+
+        const CreateTypographyParticles = () => {
+            const Bounds = StreamNode.getBoundingClientRect();
+            const CaretPositionX = Bounds.left + 30 + (Math.random() * (Bounds.width - 60));
+            const CaretPositionY = Bounds.top + 40 + (Math.random() * (Bounds.height - 80));
+
+            for (let Iteration = 0; Iteration < 6; Iteration++) {
+                ActiveParticles.push(new ParticleEntity(CaretPositionX, CaretPositionY));
+            }
+        };
+
+        const ProcessParticles = () => {
+            CanvasContext.clearRect(0, 0, CanvasNode.width, CanvasNode.height);
+            for (let Index = ActiveParticles.length - 1; Index >= 0; Index--) {
+                const CurrentParticle = ActiveParticles[Index];
+                CurrentParticle.Update();
+                if (CurrentParticle.Alpha <= 0) {
+                    ActiveParticles.splice(Index, 1);
+                } else {
+                    CurrentParticle.Draw();
                 }
-                
-                RenderNode.textContent = CurrentMetrics;
-                InterpolationFrame = requestAnimationFrame(InterpolateMetrics);
-            } else {
-                RenderNode.classList.remove('Pulse');
+            }
+            requestAnimationFrame(ProcessParticles);
+        };
+        requestAnimationFrame(ProcessParticles);
+
+        const ConstructAppleSpinner = () => {
+            for (let Index = 0; Index < 12; Index++) {
+                const Blade = document.createElement('div');
+                Blade.className = 'SpinnerBlade';
+                Blade.style.transform = `rotate(${Index * 30}deg)`;
+                Blade.style.animationDelay = `-${(12 - Index) * 0.083}s`;
+                SpinnerNode.appendChild(Blade);
             }
         };
+        ConstructAppleSpinner();
 
-        const TriggerVisualPulse = () => {
-            RenderNode.classList.add('Pulse');
-            if (InterpolationFrame) cancelAnimationFrame(InterpolationFrame);
-            InterpolateMetrics();
+        const ExecuteDetectionCycle = () => {
+            VisualizerNode.style.display = 'none';
+            SpinnerNode.style.display = 'block';
+
+            setTimeout(() => {
+                let RawBuffer = StreamNode.value;
+
+                if (!SymbolFilterNode.checked) {
+                    RawBuffer = RawBuffer.replace(/[^\p{L}\p{N}]/gu, '');
+                } else {
+                    RawBuffer = RawBuffer.replace(/[\r\n]/g, '');
+                }
+
+                RenderNode.textContent = Array.from(RawBuffer).length;
+                SpinnerNode.style.display = 'none';
+                VisualizerNode.style.display = 'flex';
+            }, 500);
         };
 
-        const ProcessStream = () => {
-            let RawBuffer = StreamNode.value;
-
-            if (!SymbolFilterNode.checked) {
-                RawBuffer = RawBuffer.replace(/[^\p{L}\p{N}]/gu, '');
-            } else {
-                RawBuffer = RawBuffer.replace(/[\r\n]/g, '');
-            }
-
-            const EvaluatedLength = Array.from(RawBuffer).length;
-
-            if (EvaluatedLength !== TargetMetrics) {
-                TargetMetrics = EvaluatedLength;
-                TriggerVisualPulse();
-            }
-        };
-
-        StreamNode.addEventListener('input', ProcessStream);
-        SymbolFilterNode.addEventListener('change', ProcessStream);
+        StreamNode.addEventListener('input', CreateTypographyParticles);
+        ActionNode.addEventListener('click', ExecuteDetectionCycle);
     </script>
 </body>
 </html>
